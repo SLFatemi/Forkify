@@ -674,9 +674,11 @@ const timeout = function(s) {
             reject(new Error(`Request took too long! Timeout after ${s} second`));
         }, s * 1000);
     });
-}; // NEW API URL (instead of the one shown in the video)
+};
+const myArray = [] // NEW API URL (instead of the one shown in the video)
  // https://forkify-api.jonas.io
  ///////////////////////////////////////
+;
 
 },{}]},["5DuvQ","7dWZ8"], "7dWZ8", "parcelRequire3a11", {})
 
