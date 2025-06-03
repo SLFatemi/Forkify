@@ -1,23 +1,23 @@
-import icons from 'url:../../img/icons.svg';
+import View from './View.js';
 
-class SearchView {
-  #parentEl = document.querySelector('.search');
+class SearchView extends View {
+  _parentEl = document.querySelector('.search');
 
   getQuery() {
-    const query = this.#parentEl.querySelector('.search__field').value;
+    const query = this._parentEl.querySelector('.search__field').value;
     this._clearInput();
     return query;
   }
 
   addHandlerSearch(handler) {
-    this.#parentEl.addEventListener('submit', function(e) {
+    this._parentEl.addEventListener('submit', function(e) {
       e.preventDefault();
       handler();
     });
   }
 
   _clearInput() {
-    this.#parentEl.querySelector('.search__field').value = '';
+    this._parentEl.querySelector('.search__field').value = '';
   }
 }
 
