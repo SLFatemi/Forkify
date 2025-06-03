@@ -5,6 +5,7 @@ import resultsView from './views/resultsView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime.js';
+import ResultsView from './views/resultsView.js';
 
 
 if (module.hot) {
@@ -39,15 +40,15 @@ async function controlSearchResults() {
 
     // Getting the query
     const query = searchView.getQuery();
-    if (!query) return;
+    if (!query) throw new Error();
 
     // Rendering the search results
     await model.loadSearchResults(query);
-    console.log(model.state.search.results);
-    resultsView.render(model.state.search.results);
+    resultsView.render(model.getSearchResultPage(2));
 
-
-  } catch (e) {}
+  } catch (e) {
+    resultsView.renderError();
+  }
   return null;
 }
 

@@ -1,4 +1,4 @@
-import { API_URL } from './config.js';
+import { API_URL, RES_PER_PAGE } from './config.js';
 import { getJSON } from './helpers.js';
 import sassTransformer from '@parcel/transformer-sass/lib/SassTransformer.js';
 
@@ -6,7 +6,9 @@ export const state = {
   recipe: {},
   search: {
     query: '',
-    results: []
+    results: [],
+    resultsPerPage: RES_PER_PAGE,
+    page: 1
   }
 };
 
@@ -42,4 +44,12 @@ export async function loadSearchResults(query) {
     });
   } catch (e) {throw e;}
   return null;
+}
+
+export function getSearchResultPage(page = 1) {
+  state.search.page = page;
+  const groupedByResults = Object.groupBy(state.search.results, (_, index) => {
+    return Math.floor(index / state.search.resultsPerPage);
+  });
+  return groupedByResults[page - 1];
 }
