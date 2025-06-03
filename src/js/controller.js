@@ -7,13 +7,16 @@ import 'regenerator-runtime/runtime.js';
 const recipeContainer = document.querySelector('.recipe');
 
 ///////////////////////////////////////
-async function showRecipe() {
+async function controlRecipes() {
   try {
+    const id = window.location.hash.slice(1);
+    if (!id) return;
+
     // Rendering the spinner
     recipeView.renderSpinner();
 
     // Loading the recipe
-    await model.loadRecipe();
+    await model.loadRecipe(id);
 
     // Rendering the recipe
     recipeView.render(model.state.recipe);
@@ -24,5 +27,8 @@ async function showRecipe() {
   return null;
 }
 
-(async () => {await showRecipe();})();
+function init() {
+  recipeView.addHandlerRender(controlRecipes);
+}
 
+init();
