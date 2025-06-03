@@ -19,6 +19,8 @@ export async function loadRecipe(id) {
       cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients
     };
-  } catch (e) {console.error(e);}
+  } catch (e) {
+    throw e;
+  }
   return null;
 }
