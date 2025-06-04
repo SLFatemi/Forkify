@@ -3,15 +3,8 @@ import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
+import '../sass/main.scss';
 
-import icons from 'url:../img/icons.svg';
-import 'core-js/stable';
-import 'regenerator-runtime/runtime.js';
-
-
-if (module.hot) {
-  module.hot.accept();
-}
 
 ///////////////////////////////////////
 async function controlRecipes() {
@@ -21,7 +14,7 @@ async function controlRecipes() {
 
     // Update result view to mark the selected search results
     resultsView.update(model.getSearchResultPage(model.state.search.page));
-
+    
     // Rendering the spinner
     recipeView.renderSpinner();
 
@@ -32,6 +25,7 @@ async function controlRecipes() {
     recipeView.render(model.state.recipe);
 
   } catch (e) {
+    console.error(e);
     recipeView.renderError();
   }
   return null;

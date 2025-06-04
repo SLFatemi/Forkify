@@ -1,4 +1,4 @@
-import icons from 'url:../../img/icons.svg';
+import icons from '../../img/icons.svg';
 
 export default class View {
   _data;
@@ -12,6 +12,7 @@ export default class View {
   }
 
   update(data) {
+    if (!data) return;
     this._data = data;
     const newHtml = this._generateMarkup();
     const newDom = document.createRange().createContextualFragment(newHtml);
