@@ -6,7 +6,6 @@ import paginationView from './views/paginationView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime.js';
-import { state } from './model.js';
 
 
 if (module.hot) {
@@ -18,6 +17,9 @@ async function controlRecipes() {
   try {
     const id = window.location.hash.slice(1);
     if (!id) return;
+
+    // Update result view to mark the selected search results
+    resultsView.update(model.getSearchResultPage(model.state.search.page));
 
     // Rendering the spinner
     recipeView.renderSpinner();
@@ -70,7 +72,7 @@ function controlServings(func) {
   model.updateServing(model.state.recipe.servings + func);
 
   // Update the recipeView
-  recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
 }
 
 function init() {

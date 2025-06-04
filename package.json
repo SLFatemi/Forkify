@@ -1,0 +1,32 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "Recipe applicaiton",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --dist-dir dist",
+    "dev": "parcel index.html"
+  },
+  "author": "sina",
+  "homepage": "https://SLFatemi.github.io/Forkify",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.15.2",
+    "buffer": "^6.0.3",
+    "events": "^3.3.0",
+    "gh-pages": "^6.3.0",
+    "os-browserify": "^0.3.0",
+    "parcel": "^2.15.2",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "url": "^0.11.4",
+    "util": "^0.12.5",
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "core-js": "^3.42.0",
+    "fracty": "^1.0.12",
+    "regenerator-runtime": "^0.14.1"
+  }
+}
