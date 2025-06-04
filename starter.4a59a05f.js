@@ -724,7 +724,7 @@ function controlPagination(page) {
 function controlServings(func) {
     // Update the recipe serving (state)
     _modelJs.updateServing(_modelJs.state.recipe.servings + func);
-    // Update the recipeView
+    // Update the recipeView.js
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 }
 function init() {
