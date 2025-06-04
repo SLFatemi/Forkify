@@ -2,10 +2,10 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
+import paginationView from './views/paginationView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime.js';
-import ResultsView from './views/resultsView.js';
 
 
 if (module.hot) {
@@ -42,9 +42,14 @@ async function controlSearchResults() {
     const query = searchView.getQuery();
     if (!query) throw new Error();
 
-    // Rendering the search results
+    // Get the results
     await model.loadSearchResults(query);
-    resultsView.render(model.getSearchResultPage(2));
+
+    // Rendering the search results
+    resultsView.render(model.getSearchResultPage());
+
+    // Render pagination
+    paginationView.render(model.state.search);
 
   } catch (e) {
     resultsView.renderError();
@@ -52,9 +57,17 @@ async function controlSearchResults() {
   return null;
 }
 
+function controlPagination(page) {
+  // Rendering the NEW search results
+  resultsView.render(model.getSearchResultPage(page));
+  // Render NEW pagination
+  paginationView.render(model.state.search);
+}
+
 function init() {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerPagination(controlPagination);
 }
 
 init();

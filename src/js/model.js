@@ -7,6 +7,7 @@ export const state = {
   search: {
     query: '',
     results: [],
+    groupedResults: [],
     resultsPerPage: RES_PER_PAGE,
     page: 1
   }
@@ -51,5 +52,6 @@ export function getSearchResultPage(page = 1) {
   const groupedByResults = Object.groupBy(state.search.results, (_, index) => {
     return Math.floor(index / state.search.resultsPerPage);
   });
+  state.search.groupedResults = groupedByResults;
   return groupedByResults[page - 1];
 }
