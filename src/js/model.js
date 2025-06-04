@@ -1,6 +1,5 @@
 import { API_URL, RES_PER_PAGE } from './config.js';
 import { getJSON } from './helpers.js';
-import sassTransformer from '@parcel/transformer-sass/lib/SassTransformer.js';
 
 export const state = {
   recipe: {},
@@ -54,4 +53,12 @@ export function getSearchResultPage(page = 1) {
   });
   state.search.groupedResults = groupedByResults;
   return groupedByResults[page - 1];
+}
+
+export function updateServing(newServing) {
+  if (newServing <= 0) return;
+  state.recipe.ingredients.forEach(ing => {
+    ing.quantity = (ing.quantity / state.recipe.servings) * newServing;
+  });
+  state.recipe.servings = newServing;
 }

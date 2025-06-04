@@ -6,7 +6,7 @@ class PaginationView extends View {
   _parentEl = document.querySelector('.pagination');
 
   _generateMarkup() {
-    if (Object.keys(this._data.groupedResults).length === 1) return null;
+    if (Object.keys(this._data.groupedResults).length === 1) return '';
     if (this._data.page === Object.keys(this._data.groupedResults).length) {
       return `
       <button data-goto="${this._data.page - 1}" class="btn--inline pagination__btn--prev">
