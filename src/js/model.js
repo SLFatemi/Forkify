@@ -1,5 +1,6 @@
 import { API_URL, RES_PER_PAGE } from './config.js';
 import { getJSON } from './helpers.js';
+import { indexOf } from 'core-js/internals/array-includes.js';
 
 export const state = {
   recipe: {},
@@ -9,7 +10,8 @@ export const state = {
     groupedResults: [],
     resultsPerPage: RES_PER_PAGE,
     page: 1
-  }
+  },
+  bookMarks: []
 };
 
 export async function loadRecipe(id) {
@@ -26,6 +28,7 @@ export async function loadRecipe(id) {
       cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients
     };
+    if (state.bookMarks.map(recipe => recipe.id).includes(state.recipe.id)) state.recipe.isBookMarked = true;
   } catch (e) {throw e;}
   return null;
 }
@@ -61,4 +64,18 @@ export function updateServing(newServing) {
     ing.quantity = (ing.quantity / state.recipe.servings) * newServing;
   });
   state.recipe.servings = newServing;
+}
+
+export function addBookMark(recipe) {
+  // Add bookmark
+  state.bookMarks.push(recipe);
+
+  // Mark the current recipe as bookmark
+  if (recipe.id === state.recipe.id) state.recipe.isBookMarked = true;
+}
+
+export function removeBookMark(id) {
+  const index = state.bookMarks.findIndex(recipe => recipe.id === id);
+  state.bookMarks.splice(index, 1);
+  state.recipe.isBookMarked = false;
 }

@@ -14,7 +14,7 @@ async function controlRecipes() {
 
     // Update result view to mark the selected search results
     resultsView.update(model.getSearchResultPage(model.state.search.page));
-    
+
     // Rendering the spinner
     recipeView.renderSpinner();
 
@@ -70,9 +70,20 @@ function controlServings(func) {
   recipeView.update(model.state.recipe);
 }
 
+function controlAddBookMark() {
+  if (model.state.recipe.isBookMarked) {
+    model.removeBookMark(model.state.recipe.id);
+    recipeView.update(model.state.recipe);
+  } else {
+    model.addBookMark(model.state.recipe);
+    recipeView.update(model.state.recipe);
+  }
+}
+
 function init() {
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerServing(controlServings);
+  recipeView.addHandlerBookMark(controlAddBookMark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerPagination(controlPagination);
 }
