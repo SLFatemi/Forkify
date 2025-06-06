@@ -72,10 +72,25 @@ export function addBookMark(recipe) {
 
   // Mark the current recipe as bookmark
   if (recipe.id === state.recipe.id) state.recipe.isBookMarked = true;
+  persistBookMarks();
 }
 
 export function removeBookMark(id) {
   const index = state.bookMarks.findIndex(recipe => recipe.id === id);
   state.bookMarks.splice(index, 1);
   state.recipe.isBookMarked = false;
+  persistBookMarks();
 }
+
+
+function persistBookMarks() {
+  localStorage.setItem('bookMarks', JSON.stringify(state.bookMarks));
+}
+
+function init() {
+  if (!localStorage.getItem('bookMarks')) return;
+  state.bookMarks = JSON.parse(localStorage.getItem('bookMarks'));
+}
+
+init();
+

@@ -2,8 +2,10 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
+import bookMarksView from './views/bookMarksView.js';
 import paginationView from './views/paginationView.js';
 import '../sass/main.scss';
+import { state } from './model.js';
 
 
 ///////////////////////////////////////
@@ -24,6 +26,8 @@ async function controlRecipes() {
     // Rendering the recipe
     recipeView.render(model.state.recipe);
 
+    // Updating the bookMarks to highlight the selected one
+    bookMarksView.render(model.state.bookMarks);
   } catch (e) {
     console.error(e);
     recipeView.renderError();
@@ -78,9 +82,16 @@ function controlAddBookMark() {
     model.addBookMark(model.state.recipe);
     recipeView.update(model.state.recipe);
   }
+  //  Render the bookmarks
+  bookMarksView.render(model.state.bookMarks);
+}
+
+function controlBookMarks() {
+  bookMarksView.render(model.state.bookMarks);
 }
 
 function init() {
+  bookMarksView.addHandlerRender(controlBookMarks);
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerServing(controlServings);
   recipeView.addHandlerBookMark(controlAddBookMark);
