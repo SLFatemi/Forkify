@@ -6,6 +6,7 @@ import bookMarksView from './views/bookMarksView.js';
 import paginationView from './views/paginationView.js';
 import '../sass/main.scss';
 import { state } from './model.js';
+import addRecipeView from './views/addRecipeView.js';
 
 
 ///////////////////////////////////////
@@ -90,6 +91,13 @@ function controlBookMarks() {
   bookMarksView.render(model.state.bookMarks);
 }
 
+
+function controlAddRecipe(newRecipe) {
+  console.log(newRecipe);
+
+  // Upload New Recipe
+}
+
 function init() {
   bookMarksView.addHandlerRender(controlBookMarks);
   recipeView.addHandlerRender(controlRecipes);
@@ -97,6 +105,7 @@ function init() {
   recipeView.addHandlerBookMark(controlAddBookMark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerPagination(controlPagination);
+  addRecipeView.addHandlerSubmit(controlAddRecipe);
 }
 
 init();
