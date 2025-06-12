@@ -15,7 +15,8 @@ export default class View {
     if (!data) return;
     this._data = data;
     const newHtml = this._generateMarkup();
-    const newDom = document.createRange().createContextualFragment(newHtml);
+    const newDom = document.createRange()
+      .createContextualFragment(newHtml);
     const newElements = [...newDom.querySelectorAll('*')];
     const curElements = [...this._parentEl.querySelectorAll('*')];
 

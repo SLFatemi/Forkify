@@ -4,9 +4,9 @@ import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import bookMarksView from './views/bookMarksView.js';
 import paginationView from './views/paginationView.js';
-import '../sass/main.scss';
-import { state } from './model.js';
 import addRecipeView from './views/addRecipeView.js';
+import '../sass/main.scss';
+import { MODAL_CLOSE } from './config.js';
 
 
 ///////////////////////////////////////
@@ -28,7 +28,7 @@ async function controlRecipes() {
     recipeView.render(model.state.recipe);
 
     // Updating the bookMarks to highlight the selected one
-    bookMarksView.render(model.state.bookMarks);
+    bookMarksView.update(model.state.bookMarks);
   } catch (e) {
     console.error(e);
     recipeView.renderError();
@@ -92,10 +92,32 @@ function controlBookMarks() {
 }
 
 
-function controlAddRecipe(newRecipe) {
-  console.log(newRecipe);
+async function controlAddRecipe(newRecipe) {
+  try {
+    // Show Spinner
+    addRecipeView.renderSpinner();
 
-  // Upload New Recipe
+    // Upload New Recipe
+    await model.uploadRecipe(newRecipe);
+
+    // ُShow message
+    addRecipeView.renderMessage();
+
+    // Render the recipe
+    recipeView.render(model.state.recipe);
+    bookMarksView.render(model.state.bookMarks);
+
+    // Change ID in the URL
+    window.history.pushState(null, '', `#${model.state.recipe.id}`);
+
+    // Close window
+    setTimeout(function() {
+      addRecipeView.closeWindow();
+    }, MODAL_CLOSE * 1000);
+
+  } catch (e) {
+    addRecipeView.renderError(e.message);
+  }
 }
 
 function init() {
